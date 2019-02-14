@@ -5,10 +5,10 @@ Subject: compositor_delegate.patch
 
 
 diff --git a/content/browser/compositor/gpu_process_transport_factory.cc b/content/browser/compositor/gpu_process_transport_factory.cc
-index 5aeda7bd9caf6b5b9e2a95293e4409dc7f9a6d2d..d15e1462babe97b5d68014f4d67236653046aa5f 100644
+index e82686caa5cc148295e4b0512ded342d4721a474..6439ccd4f990988c063b7909f977e805976c614b 100644
 --- a/content/browser/compositor/gpu_process_transport_factory.cc
 +++ b/content/browser/compositor/gpu_process_transport_factory.cc
-@@ -485,10 +485,20 @@ void GpuProcessTransportFactory::EstablishedGpuChannel(
+@@ -484,10 +484,20 @@ void GpuProcessTransportFactory::EstablishedGpuChannel(
          // surfaces as they are not following the correct mode.
          DisableGpuCompositing(compositor.get());
        }
@@ -32,12 +32,12 @@ index 5aeda7bd9caf6b5b9e2a95293e4409dc7f9a6d2d..d15e1462babe97b5d68014f4d6723665
      } else {
        DCHECK(context_provider);
 diff --git a/ui/compositor/compositor.h b/ui/compositor/compositor.h
-index 313431f82ee7e181dad2c48dd27950129afbb223..b8c2632e49b7b96adbb06a03678961823f0790f6 100644
+index 0f389ceee596b6d1899a7b0a12cec551fac565d1..c04a15b9e19c3263f8447723a40e250a54b576ab 100644
 --- a/ui/compositor/compositor.h
 +++ b/ui/compositor/compositor.h
 @@ -25,6 +25,7 @@
  #include "components/viz/common/surfaces/frame_sink_id.h"
- #include "components/viz/common/surfaces/local_surface_id.h"
+ #include "components/viz/common/surfaces/local_surface_id_allocation.h"
  #include "components/viz/host/host_frame_sink_client.h"
 +#include "components/viz/service/display/software_output_device.h"
  #include "third_party/skia/include/core/SkColor.h"
@@ -59,7 +59,7 @@ index 313431f82ee7e181dad2c48dd27950129afbb223..b8c2632e49b7b96adbb06a0367896182
  // Compositor object to take care of GPU painting.
  // A Browser compositor object is responsible for generating the final
  // displayable form of pixels comprising a single widget's contents. It draws an
-@@ -232,6 +242,9 @@ class COMPOSITOR_EXPORT Compositor : public cc::LayerTreeHostClient,
+@@ -235,6 +245,9 @@ class COMPOSITOR_EXPORT Compositor : public cc::LayerTreeHostClient,
    // Schedules a redraw of the layer tree associated with this compositor.
    void ScheduleDraw();
  
@@ -69,7 +69,7 @@ index 313431f82ee7e181dad2c48dd27950129afbb223..b8c2632e49b7b96adbb06a0367896182
    // Sets the root of the layer tree drawn by this Compositor. The root layer
    // must have no parent. The compositor's root layer is reset if the root layer
    // is destroyed. NULL can be passed to reset the root layer, in which case the
-@@ -442,6 +455,8 @@ class COMPOSITOR_EXPORT Compositor : public cc::LayerTreeHostClient,
+@@ -457,6 +470,8 @@ class COMPOSITOR_EXPORT Compositor : public cc::LayerTreeHostClient,
    ui::ContextFactory* context_factory_;
    ui::ContextFactoryPrivate* context_factory_private_;
  
