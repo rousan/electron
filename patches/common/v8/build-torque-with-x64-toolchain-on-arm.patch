@@ -6,10 +6,10 @@ Subject: build-torque-with-x64-toolchain-on-arm.patch
 torque binary has to be run during the build.
 
 diff --git a/BUILD.gn b/BUILD.gn
-index b70c09aa34aa7547e7d26d9e35795904a17c092f..0fa207082101165ec5d888cd21e4ca916ee458a9 100644
+index 868062438c297c3d7e59ba87a2b6b7768fcbec29..6d9564066754ee0bd306d569e7960f6e471b45d6 100644
 --- a/BUILD.gn
 +++ b/BUILD.gn
-@@ -184,7 +184,8 @@ declare_args() {
+@@ -180,7 +180,8 @@ declare_args() {
  
  v8_generator_toolchain = v8_snapshot_toolchain
  if (host_cpu == "x64" &&
@@ -19,7 +19,7 @@ index b70c09aa34aa7547e7d26d9e35795904a17c092f..0fa207082101165ec5d888cd21e4ca91
    v8_generator_toolchain = "//build/toolchain/linux:clang_x64"
  }
  
-@@ -3352,7 +3353,7 @@ if (v8_monolithic) {
+@@ -3372,7 +3373,7 @@ if (v8_monolithic) {
  # Executables
  #
  
@@ -28,7 +28,7 @@ index b70c09aa34aa7547e7d26d9e35795904a17c092f..0fa207082101165ec5d888cd21e4ca91
    v8_executable("bytecode_builtins_list_generator") {
      visibility = [ ":*" ]  # Only targets in this file can depend on this.
  
-@@ -3402,7 +3403,7 @@ if (v8_use_snapshot && current_toolchain == v8_snapshot_toolchain) {
+@@ -3422,7 +3423,7 @@ if (v8_use_snapshot && current_toolchain == v8_snapshot_toolchain) {
    }
  }
  
