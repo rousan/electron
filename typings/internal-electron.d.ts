@@ -68,4 +68,8 @@ declare namespace ElectronInternal {
     promisify<T extends (...args: any[]) => any>(fn: T): T;
     promisifyMultiArg<T extends (...args: any[]) => any>(fn: T): T;
   }
+
+  interface IpcRendererInternal extends Electron.IpcRenderer {
+    sendToAll(webContentsId: number, channel: string, ...args: any[]): void
+  }
 }
