@@ -68,4 +68,8 @@ declare namespace ElectronInternal {
     promisify<T extends (...args: any[]) => any>(fn: T): T;
     promisifyMultiArg<T extends (...args: any[]) => any>(fn: T): T;
   }
+
+  interface Global extends NodeJS.Global {
+    require: NodeRequire;
+  }
 }
